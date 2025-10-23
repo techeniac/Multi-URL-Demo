@@ -1,6 +1,6 @@
 export const domainConfig = {
-  admin: "admin.sena.com",
-  provider: "provider.sena.com",
+  admin: "admin.techeniac.com",
+  provider: "provider.techeniac.com",
 };
 
 export const getAppType = (): "admin" | "provider" | "default" => {
