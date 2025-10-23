@@ -1,38 +1,26 @@
-import AdminLayout from './layouts/AdminLayout';
-import ProviderLayout from './layouts/ProviderLayout';
-import Dashboard from './modules/admin/Dashboard';
-import Home from './modules/provider/Home';
-import { getAppType } from './utils/domainConfig';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { getAppType } from "./utils/domainConfig";
+import AdminLayout from "./layouts/AdminLayout";
+import ProviderLayout from "./layouts/ProviderLayout";
+import adminRoutes from "./routes/adminRoutes";
+import providerRoutes from "./routes/providerRoutes";
 
-export default function App() {
+const App: React.FC = () => {
   const appType = getAppType();
 
-  if (appType === 'admin') {
-    return (
-      <AdminLayout>
-        <Dashboard />
-      </AdminLayout>
-    );
-  }
-
-  if (appType === 'provider') {
-    return (
-      <ProviderLayout>
-        <Home />
-      </ProviderLayout>
-    );
-  }
-
-  // Default view if not admin/provider domain
-  return (
-    <div style={{ padding: 20, fontFamily: 'sans-serif' }}>
-      <h2>Welcome to Multi-URL Demo</h2>
-      <p>This is the default screen.</p>
-      <p>Try visiting:</p>
-      <ul>
-        <li><b>admin.yourdomain.com</b> — Admin dashboard</li>
-        <li><b>provider.yourdomain.com</b> — Provider homepage</li>
-      </ul>
-    </div>
+  const renderRoutes = (routes: { path: string; element: React.FC }[], Layout: React.FC<{ children: React.ReactNode }>) => (
+    <Layout>
+      <Routes>
+        {routes.map(({ path, element: Element }) => (
+          <Route key={path} path={path} element={<Element />} />
+        ))}
+        <Route path="*" element={<Navigate to={routes[0].path} />} />
+      </Routes>
+    </Layout>
   );
-}
+
+  return <Router>{appType === "admin" ? renderRoutes(adminRoutes, AdminLayout) : renderRoutes(providerRoutes, ProviderLayout)}</Router>;
+};
+
+export default App;

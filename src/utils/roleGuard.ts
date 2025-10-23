@@ -1,7 +1,12 @@
-// interface User {
-//   role: 'admin' | 'provider';
-// }
+export type UserRole = "admin" | "provider";
 
-// export const hasAccess = (user: User | null, requiredRole: 'admin' | 'provider'): boolean => {
-//   return user?.role === requiredRole;
-// };
+export interface User {
+  id: string;
+  name: string;
+  role: UserRole;
+}
+
+export const hasAccess = (user: User | null, requiredRole: UserRole): boolean => {
+  if (!user) return false;
+  return user.role === requiredRole;
+};

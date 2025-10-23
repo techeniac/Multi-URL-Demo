@@ -1,12 +1,18 @@
-import type { ReactNode } from 'react';
+import React from "react";
+import type { ReactNode } from "react";
 
-export default function ProviderLayout({ children }: { children: ReactNode }) {
+interface Props {
+  children: ReactNode;
+}
+
+const ProviderLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div style={{ fontFamily: 'sans-serif' }}>
-      <header style={{ background: '#0a6', color: '#fff', padding: 16 }}>
-        Provider Panel
-      </header>
+    <div>
+      <header>Provider Header</header>
       <main>{children}</main>
+      <footer>Provider Footer</footer>
     </div>
   );
-}
+};
+
+export default ProviderLayout;
