@@ -1,6 +1,6 @@
 export const domainConfig = {
-  admin: "admin.techeniac.com",
-  provider: "provider.techeniac.com",
+  admin: "admin.developmentservers.in",
+  provider: "provider.developmentservers.in",
 };
 
 export const getAppType = (): "admin" | "provider" | "default" => {
